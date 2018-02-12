@@ -1,23 +1,40 @@
-import  edu.umass.cs.CSV
+import  hw.csv._
 
-object CSVWrangling {
+sealed trait Gender
+case class Male() extends Gender
+case class Female() extends Gender
 
-  val births = CSV.fromFile("ssa-baby-names.csv")
-  val lifeExpectancy = CSV.fromFile("cdc-life-exppectancy.csv")
+case class SSARow(birthYear: Int, name: String, gender: Gender, count: Int)
 
-  def yearGT(data: List[List[String]], bound: Int): List[List[String]] = ???
+case class CDCRow(birthYear: Int, maleLifeExpectancy: Int,
+  femaleLifeExpectancy: Int)
 
-  def yearLT(data: List[List[String]], bound: Int): List[List[String]] = ???
+object Main {
 
-  def onlyName(data: List[List[String]], name: String): List[List[String]] = ???
+  def readSSARow(row: List[String]): SSARow = ???
 
-  def mostPopular(data: List[List[String]]): (String, Int) = ???
+  def readCDCRow(row: List[String]): CDCRow = ???
 
-  def countGirlsAndBoys(data: List[List[String]]): (Int, Int) = ???
+  def yearIs(rows: List[SSARow], bound: Int): List[SSARow] = ???
 
-  def unisexNames(data: List[List[String]]): Set[String] = ???
+  def yearGT(rows: List[SSARow], bound: Int): List[SSARow] = ???
 
-  def expectedAlive(gender: String, birthYear: Int, currentYear: Int): Boolean = ???
+  def yearLT(rows: List[SSARow], bound: Int): List[SSARow] = ???
 
-  def estimatePopulation(data: List[List[String]], year: Int): Int = ???
+  def onlyName(rows: List[SSARow], name: String): List[SSARow] = ???
+
+  def mostPopular(rows: List[SSARow]): (String, Int) = ???
+
+  def count(rows: List[SSARow]): Int = ???
+
+  def countGirlsAndBoys(rows: List[SSARow]): (Int, Int) = ???
+
+  def genderNeutralNames(rows: List[SSARow]): Set[String] = ???
+
+  def expectedAlive(gender: Gender, birthYear: Int, currentYear: Int,
+    lifeExpectancies: List[CDCRow]): Boolean = ???
+
+  def estimatePopulation(rows: List[SSARow], year: Int,
+    lifeExpectancies: List[CDCRow]): Int = ???
+
 }
